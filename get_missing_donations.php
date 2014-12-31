@@ -1,10 +1,13 @@
 <?php
-require('iframe.php');
+// require('iframe.php');
+require('../common.php');
 
 // Purpose - Due to a small mess up of mine - some donations went into the wrong database. This will get them back into the right database.
 
-$old = new Sql('Temp_Cfrapp');
-$sql = new Sql('Project_Donut');
+// $old = new Sql('Temp_Cfrapp');
+// $sql = new Sql('Project_Donut');
+$old = new Sql('localhost', 'makeadiff', 'M@k3aDi', "cfrapp");
+$sql = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
 
 $donations = $old->getAll("SELECT * FROM donations WHERE created_at>'2014-12-26 12:00:00' AND created_at<'2014-12-27 08:00:00'");
 
