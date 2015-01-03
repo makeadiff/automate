@@ -73,12 +73,12 @@ foreach($m_users as $u) {
 			'is_deleted'		=> '0',
 		));
 
-		$donut->insert("user_role_maps", array(
-				'role_id'	=> 10, //Volunteer
-				'user_id'	=> $insert_id,
-				'created_at'=> 'NOW()',
-				'updated_at'=> 'NOW()',
-			));
+		// $donut->insert("user_role_maps", array(
+		// 		'role_id'	=> 10, //Volunteer
+		// 		'user_id'	=> $insert_id,
+		// 		'created_at'=> 'NOW()',
+		// 		'updated_at'=> 'NOW()',
+		// 	));
 		print "Done($insert_id)\n";
 	}
 }
