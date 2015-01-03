@@ -4,10 +4,10 @@ require('../common.php');
 
 /// Use to copy over all the users in Madapp User table to Donut User database table.
 
-// $madapp = new Sql("Project_Madapp");
-// $donut = new Sql("Project_Donut");
-$madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
-$donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
+$madapp = new Sql("Project_Madapp");
+$donut = new Sql("Project_Donut");
+// $madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
+// $donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
 
 $city_transilation = array(
 		// Madapp City ID 		=> Donut City ID
@@ -47,6 +47,7 @@ $d_users = $donut->getAll("SELECT * FROM users WHERE is_deleted='0'");
 $d_phones = array();
 foreach ($d_users as $u) {
 	$d_phones[$u['phone_no']] = $u['id'];
+	$d_madapped[$u['madapp_user_id']] = $u['id'];
 }
 $total = count($m_users);
 
@@ -55,11 +56,13 @@ foreach($m_users as $u) {
 	$count++;
 	//print "$count/$total) ";
 	if(isset($d_phones[$u['phone']])) {
-		$donut_user_id = $d_phones[$u['phone']];
+		$donut_user_id = $d_phones[$u['phone']];	
 		//print "Found: " . $u['name'] . " : " . $donut_user_id . "\n";
-		$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
+
+		if(!isset($d_madapped[$u['id']])) 
+			$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
 	} else {
-		print "Adding user $u[name]<br>";
+		print "Adding user $u[name] - ";
 		$insert_id = $donut->insert("users", array(
 			'encrypted_password'=> '',
 			'email'				=> $u['email'],
@@ -67,7 +70,7 @@ foreach($m_users as $u) {
 			'updated_at'		=> 'NOW()',
 			'address'			=> $u['address'],
 			'first_name'		=> $u['name'],
-			'phone_no'			=> $u['phone'],
+			'phone_no'			=> ltrim($u['phone'], '0'),
 			'city_id'			=> $city_transilation[$u['city_id']],
 			'madapp_user_id'	=> $u['id'],
 			'is_deleted'		=> '0',
@@ -79,7 +82,7 @@ foreach($m_users as $u) {
 		// 		'created_at'=> 'NOW()',
 		// 		'updated_at'=> 'NOW()',
 		// 	));
-		//print "Done($insert_id)\n";
+		print "Done($insert_id)<br />";
 	}
 }
 
