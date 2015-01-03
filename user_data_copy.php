@@ -53,13 +53,13 @@ $total = count($m_users);
 $count = 0;
 foreach($m_users as $u) {
 	$count++;
-	print "$count/$total) ";
+	//print "$count/$total) ";
 	if(isset($d_phones[$u['phone']])) {
 		$donut_user_id = $d_phones[$u['phone']];
-		print "Found: " . $u['name'] . " : " . $donut_user_id . "\n";
+		//print "Found: " . $u['name'] . " : " . $donut_user_id . "\n";
 		$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
 	} else {
-		print "Adding user $u[name] ... ";
+		print "Adding user $u[name]<br>";
 		$insert_id = $donut->insert("users", array(
 			'encrypted_password'=> '',
 			'email'				=> $u['email'],
@@ -79,8 +79,8 @@ foreach($m_users as $u) {
 		// 		'created_at'=> 'NOW()',
 		// 		'updated_at'=> 'NOW()',
 		// 	));
-		print "Done($insert_id)\n";
+		//print "Done($insert_id)\n";
 	}
 }
 
-print "All done...\n";
+print "All done";
