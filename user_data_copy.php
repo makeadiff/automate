@@ -64,7 +64,7 @@ foreach($m_users as $u) {
 	} else {
 		print "Adding user $u[name] - ";
 		$insert_id = $donut->insert("users", array(
-			'encrypted_password'=> '',
+			'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.',
 			'email'				=> $u['email'],
 			'created_at'		=> 'NOW()',
 			'updated_at'		=> 'NOW()',
