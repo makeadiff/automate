@@ -55,13 +55,21 @@ $count = 0;
 foreach($m_users as $u) {
 	$count++;
 	//print "$count/$total) ";
-	if(isset($d_phones[$u['phone']])) {
-		$donut_user_id = $d_phones[$u['phone']];	
+	$small_phone_number = ltrim($u['phone'], '0');
+	if(isset($d_phones[$u['phone']]) 
+			or isset($d_phones[$small_phone_number])) {
+
+		$donut_user_id = isset($d_phones[$u['phone']]) ? $d_phones[$u['phone']] : $d_phones[$small_phone_number];
 		//print "Found: " . $u['name'] . " : " . $donut_user_id . "\n";
 
 		if(!isset($d_madapped[$u['id']])) 
 			$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
 	} else {
+		dump($u);
+		dump($d_phones[$u['phone']]);
+		exit;
+
+
 		print "Adding user $u[name] - ";
 		$insert_id = $donut->insert("users", array(
 			'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.',
@@ -75,6 +83,7 @@ foreach($m_users as $u) {
 			'madapp_user_id'	=> $u['id'],
 			'is_deleted'		=> '0',
 		));
+		$d_phones[ltrim($u['phone'], '0')] = $insert_id; // Make sure it won't be inserted again.
 
 		// $donut->insert("user_role_maps", array(
 		// 		'role_id'	=> 10, //Volunteer
@@ -82,7 +91,7 @@ foreach($m_users as $u) {
 		// 		'created_at'=> 'NOW()',
 		// 		'updated_at'=> 'NOW()',
 		// 	));
-		print "Done($insert_id)<br />";
+		print "Done($insert_id)<br />\n";
 	}
 }
 
