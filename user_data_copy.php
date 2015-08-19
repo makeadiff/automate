@@ -65,9 +65,9 @@ foreach($m_users as $u) {
 		if(!isset($d_madapped[$u['id']])) 
 			$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
 	} else {
-		dump($u);
-		dump($d_phones[$u['phone']]);
-		exit;
+		// dump($u);
+		// dump($d_phones[$u['phone']]);
+		// exit;
 
 
 		print "Adding user $u[name] - ";
