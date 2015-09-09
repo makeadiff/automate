@@ -4,10 +4,10 @@ require('../common.php');
 
 /// Use to copy over selected users in Madapp User table to Donut User database table.
 
-$madapp = new Sql("Project_Madapp");
-$donut = new Sql("Project_Donut");
-// $madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
-// $donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
+//$madapp = new Sql("Project_Madapp");
+//$donut = new Sql("Project_Donut");
+$madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
+$donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
 
 showTop('Select Users to Import');
 
