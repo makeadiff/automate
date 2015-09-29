@@ -77,26 +77,26 @@ foreach($m_users as $u) {
 
 		print "Adding user $u[name] - ";
 		$insert_id = 0;
-		// $insert_id = $donut->insert("users", array(
-		// 	'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.',
-		// 	'email'				=> $u['email'],
-		// 	'created_at'		=> 'NOW()',
-		// 	'updated_at'		=> 'NOW()',
-		// 	'address'			=> $u['address'],
-		// 	'first_name'		=> $u['name'],
-		// 	'phone_no'			=> ltrim($u['phone'], '0'),
-		// 	'city_id'			=> $city_transilation[$u['city_id']],
-		// 	'madapp_user_id'	=> $u['id'],
-		// 	'is_deleted'		=> '0',
-		// ));
+		$insert_id = $donut->insert("users", array(
+			'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.',
+			'email'				=> $u['email'],
+			'created_at'		=> 'NOW()',
+			'updated_at'		=> 'NOW()',
+			'address'			=> $u['address'],
+			'first_name'		=> $u['name'],
+			'phone_no'			=> ltrim($u['phone'], '0'),
+			'city_id'			=> $city_transilation[$u['city_id']],
+			'madapp_user_id'	=> $u['id'],
+			'is_deleted'		=> '0',
+		));
 		$d_phones[ltrim($u['phone'], '0')] = $insert_id; // Make sure it won't be inserted again.
 
-		// $donut->insert("user_role_maps", array(
-		// 		'role_id'	=> 10, //Volunteer
-		// 		'user_id'	=> $insert_id,
-		// 		'created_at'=> 'NOW()',
-		// 		'updated_at'=> 'NOW()',
-		// 	));
+		$donut->insert("user_role_maps", array(
+				'role_id'	=> 10, //Volunteer
+				'user_id'	=> $insert_id,
+				'created_at'=> 'NOW()',
+				'updated_at'=> 'NOW()',
+			));
 		print "Done($insert_id)<br />\n";
 	}
 }
