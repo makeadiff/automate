@@ -4,8 +4,8 @@ require('../common.php');
 
 /// Use to copy over all the users in Madapp User table to Donut User database table.
 
-//$madapp = new Sql("Project_Madapp");
-//$donut = new Sql("Project_Donut");
+// $madapp = new Sql("Project_Madapp");
+// $donut = new Sql("Project_Donut");
 $madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
 $donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
 
@@ -91,12 +91,13 @@ foreach($m_users as $u) {
 		));
 		$d_phones[ltrim($u['phone'], '0')] = $insert_id; // Make sure it won't be inserted again.
 
-		$donut->insert("user_role_maps", array(
-				'role_id'	=> 10, //Volunteer
-				'user_id'	=> $insert_id,
-				'created_at'=> 'NOW()',
-				'updated_at'=> 'NOW()',
-			));
+		// DO NOT assign them as a volunteer. Or they'll never show up in the free pool. When they are assigned a manager they'll be given the volunteer tag.
+		// $donut->insert("user_role_maps", array(
+		// 		'role_id'	=> 10, //Volunteer
+		// 		'user_id'	=> $insert_id,
+		// 		'created_at'=> 'NOW()',
+		// 		'updated_at'=> 'NOW()',
+		// 	));
 		print "Done($insert_id)<br />\n";
 	}
 }
