@@ -1,13 +1,15 @@
 <?php
-//require('iframe.php');
-require('../common.php');
+require('./common.php');
 
 /// Use to copy over all the users in Madapp User table to Donut User database table.
 
-// $madapp = new Sql("Project_Madapp");
-// $donut = new Sql("Project_Donut");
-$madapp = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_madapp");
-$donut = new Sql('localhost', 'makeadiff', 'M@k3aDi', "makeadiff_cfrapp");
+if($_SERVER['HTTP_HOST'] == 'makeadiff.in') {
+	$madapp = new Sql($config['db_host'], $config['db_user'], $config['db_password'], "makeadiff_madapp");
+	$donut = new Sql($config['db_host'], $config['db_user'], $config['db_password'], "makeadiff_cfrapp");
+} else {
+	$madapp = new Sql($config['db_host'], $config['db_user'], $config['db_password'], "Project_Madapp");
+	$donut = new Sql($config['db_host'], $config['db_user'], $config['db_password'], "Project_Donut");
+}
 
 $city_transilation = array(
 		// Madapp City ID 		=> Donut City ID
