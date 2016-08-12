@@ -70,7 +70,7 @@ foreach($m_users as $u) {
 		print "Found: " . $u['name'] . " : " . $donut_user_id . "<br />\n";
 
 		if(!isset($d_madapped[$u['id']])) 
-			$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id'");
+			$donut->execQuery("UPDATE users SET madapp_user_id='$u[id]' WHERE id='$donut_user_id' AND is_deleted='0'");
 	} else {
 		// dump($u);
 		// dump($d_phones[$u['phone']]);
