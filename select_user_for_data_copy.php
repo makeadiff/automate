@@ -69,9 +69,11 @@ foreach($all_user_groups as $id => $gname) { ?>
 
 <?php if($all_users) { ?>
 <h3>Users...</h3>
+<input type="button" onclick="$('input.user').prop('checked', true)" value="Check All" />
+
 <form action="user_data_copy.php" method="post">
 <?php foreach($all_users as $user_id => $name) { ?>
-<input type="checkbox" value="1" name="user_id[<?php echo $user_id ?>]" id="user_<?php echo $user_id ?>" /> <label for="user_<?php echo $user_id ?>"><?php echo $name ?></label><br />
+<input type="checkbox" value="1" name="user_id[<?php echo $user_id ?>]" class="user" id="user_<?php echo $user_id ?>" /> <label for="user_<?php echo $user_id ?>"><?php echo $name ?></label><br />
 <?php } ?>
 <input type="submit" name="action" value="Import" class="btn btn-success" />
 </form>

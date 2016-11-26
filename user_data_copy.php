@@ -61,6 +61,11 @@ $total = count($m_users);
 $count = 0;
 foreach($m_users as $u) {
 	$count++;
+	if(!$u['phone']) {
+		print "User $u[name] doesn't have a valid phone number. Not attepting to add.<br />\n";
+		continue;
+	}
+
 	//print "$count/$total) ";
 	$small_phone_number = ltrim($u['phone'], '0');
 	if(isset($d_phones[$u['phone']]) 
@@ -76,11 +81,10 @@ foreach($m_users as $u) {
 		// dump($d_phones[$u['phone']]);
 		// exit;
 
-
 		print "Adding user $u[name] - ";
 		$insert_id = 0;
 		$insert_id = $donut->insert("users", array(
-			'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.',
+			'encrypted_password'=> '$2a$10$ZMf.qdZnLG3Iy.8d/4NFIeUEpbwZszgKYEU5Yua8upmb92tOQx2H.', // pass
 			'email'				=> $u['email'],
 			'created_at'		=> 'NOW()',
 			'updated_at'		=> 'NOW()',
